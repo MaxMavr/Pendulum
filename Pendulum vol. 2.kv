@@ -1,0 +1,371 @@
+<Anim_canvas@Widget>:
+    size_hint: None, None
+    color: 0,0,0,1
+    canvas:
+        Color:
+            rgba: self.color
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<BIGLabel@Label>:
+    color: 1, 1, 1, 1
+    font_size: "35sp"
+    valign: "top"
+    halign: "left"
+    size: 57, 35
+    size_hint: 1, None
+    text_size: self.size
+    font_name: "AdobeClean-Regular"
+
+<BIGBIGLabel@Label>:
+    font_size: "50sp"
+    valign: "top"
+    halign: "left"
+    size: 57, 40
+    size_hint: 1, None
+    text_size: self.size
+    font_name: "AdobeClean-bold"
+
+<Box@BoxLayout>:
+    spacing: 10
+    size: 57, 57
+    size_hint: 1, None
+
+<My1Label@Label>:
+    color: 1, 1, 1, .5
+    halign: "left"
+    valign: "middle"
+    text_size: self.size
+    font_size: "35sp"
+    size: 57, 57
+    size_hint: None, None
+    font_name: "AdobeClean-Regular"
+
+<My2Label@Label>:
+    color: 1, 1, 1, 1
+    halign: "left"
+    valign: "middle"
+    text_size: self.size
+    font_size: "35sp"
+    size: 100, 57
+    size_hint: None, None
+    font_name: "AdobeClean-Regular"
+
+<Check@HLCheckBox>:
+    size: 57, 57
+    size_hint: None, None
+    btn_color_not_pressed: [46/255, 43/255, 63/255, 1]
+    btn_color_pressed: [113/255, 34/255, 234/255, 1]
+    canvas.before:
+        Color:
+            rgba: self.btn_color_not_pressed if self.state=='normal' else self.btn_color_pressed
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [14]
+
+<Btn@HLButton>:
+    color: 1, 1, 1, 1
+    halign: "center"
+    valign: "middle"
+    text_size: self.size
+    font_size: "35sp"
+    size: 224, 57
+    size_hint: None, None
+    font_name: "AdobeClean-Regular"
+    btn_color_not_pressed: [46/255, 43/255, 63/255, 1]
+    btn_color_pressed: [255/255, 137/255, 216/255, 1]
+    canvas.before:
+        Color:
+            rgba: self.btn_color_not_pressed if self.state=='normal' else self.btn_color_pressed
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [14]
+    background_color: 0, 0, 0, 0
+    background_normal: ""
+
+<Im@Image>:
+    center_x: self.parent.center_x
+    center_y: self.parent.center_y
+
+<Text@TextInput>:
+    selection_color: [113/255, 34/255, 234/255, .3]
+    color: 1, 1, 1, 1
+    size_hint: None, None
+    size: 100, 57
+    multiline: False
+    font_size: "35sp"
+    font_name: "L:/maxim/2 Для робот/шрифт/русско-английские шрифты/AdobeClean/AdobeClean-Regular"
+    background_color: [34/255, 31/255, 46/255, .8]
+    foreground_color: 1,1,1,1
+    background_normal: ""
+    cursor_color: [113/255, 32/255, 234/255, 1]
+    input_filter: 'float'
+
+
+
+<Container>:
+    cols: 2
+    padding: 20
+    spacing: 10
+
+    long: l_input
+    high: h_input
+    alpha: al_input
+    mass: m_input
+
+    period: T
+    angular_frequency: w
+    frequency: v
+    amplitude: A
+    energy: E
+    speed: vv
+    boost: aa
+
+    pend: pend
+    anim: anim
+    grafic: grafic
+
+
+    GridLayout:
+        rows: 2
+        spacing: 20
+
+        BIGBIGLabel:
+            text: "Pendulum"
+
+        BoxLayout:
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 10
+                spacing: 20
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: 10
+                    spacing: 10
+                    size: 57, 323
+                    size_hint: 1, None
+                    canvas.before:
+                        Color:
+                            rgba: [46/255, 43/255, 63/255, 0.5]
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    BIGLabel:
+                        text: "Дано"
+
+                    GridLayout:
+                        cols: 3
+                        rows: 4
+                        spacing: [15, 5]
+
+                        My2Label:
+                            size: 57, 57
+                            halign: "center"
+                            text: "l"
+                        Text:
+                            id: l_input
+                        My1Label
+                            text: "м"
+
+                        Check:
+                            group: "group"
+                            background_radio_normal: "h.png"
+                            background_radio_down: "h.png"
+                            on_active:root.checkh(self, self.active)
+                        Text:
+                            id: h_input
+                        My1Label
+                            text: "м"
+
+
+                        Check:
+                            group: "group"
+                            background_radio_normal: "al.png"
+                            background_radio_down: "al.png"
+                            on_active:root.checkal(self, self.active)
+                        Text:
+                            id: al_input
+                        My1Label:
+                            text: "°"
+
+                        Check:
+                            background_checkbox_normal: "m.png"
+                            background_checkbox_down: "m.png"
+                            on_active:root.checkm(self, self.active)
+                        Text:
+                            id: m_input
+                        My1Label:
+                            text: "кг"
+
+                Btn:
+                    text: "Вычислить"
+                    on_release: root.button_update()
+
+                AnchorLayout:
+                    padding: 10
+                    spacing: 10
+                    anchor_x: "center"
+                    anchor_y: "top"
+                    HLLabel:
+                        color: 46/255, 43/255, 63/255, 1
+                        halign: "left"
+                        valign: "top"
+                        text_size: self.size
+                        font_size: "15sp"
+                        font_name: "AdobeClean-Regular"
+                        text: 'Введите длину подвеса. (l)\n \nЗатем укажите высоту, на которую подняли маятник или угол сдвига. (h или α)\nВыбрать считать с помощью высоты или угла можно нажав на значёк обведённый фиолетовым.\n \nТакже вы можете ввести массу (m),\nне забудте нажать на её значёк.'
+
+            AnchorLayout:
+                padding: 10
+                spacing: 10
+                anchor_x: "center"
+                anchor_y: "top"
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: 10
+                    spacing: 10
+                    size: 57, 509
+                    size_hint: 1, None
+                    canvas.before:
+                        Color:
+                            rgba: [46/255, 43/255, 63/255, 0.5]
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    BIGLabel:
+                        text: "Параметры"
+
+                    GridLayout:
+                        cols: 3
+                        rows: 7
+                        spacing: [15, 5]
+
+                        My1Label:
+                            text: "T"
+                        My2Label:
+                            id: T
+                            text: "0"
+                        My1Label:
+                            text: "с"
+
+                        My1Label
+                            text: "ω"
+                        My2Label:
+                            id: w
+                            text: "0"
+                        My1Label
+                            size: 85, 57
+                            text: "рад/с"
+
+                        My1Label:
+                            text: "ν"
+                        My2Label:
+                            id: v
+                            text: "0"
+                        My1Label:
+                            text: "Гц"
+
+                        My1Label:
+                            text: "A"
+                        My2Label:
+                            id: A
+                            text: "0"
+                        My1Label:
+                            text: "м"
+
+                        My1Label:
+                            text: "E"
+                        My2Label:
+                            id: E
+                            text: "0"
+                        My1Label:
+                            text: "Дж"
+
+                        My1Label:
+                            size: 70, 57
+                            text: "vₘₐₓ"
+                            font_name: "Roboto-Regular"
+                        My2Label:
+                            id: vv
+                            text: "0"
+                        My1Label:
+                            text: "м/с"
+
+                        My1Label
+                            size: 70, 57
+                            text: "aₘₐₓ"
+                            font_name: "Roboto-Regular"
+                        My2Label:
+                            id: aa
+                            text: "0"
+                        My1Label
+                            size: 70, 57
+                            text: "м/с²"
+
+    BoxLayout:
+        size_hint: .75, 1
+        spacing: 20
+        orientation: 'vertical'
+
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: [46/255, 43/255, 63/255, 0.5]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            RelativeLayout:
+                id: pend
+                canvas.before:
+                    Color:
+                        rgba: [1, 1, 1, 1]
+                    Line:
+                        points: self.width / 2 - 5, self.height - 25, self.width / 2 + 5, self.height - 35
+                        width: 1
+                    Line:
+                        points: self.width / 2 + 5, self.height - 25, self.width / 2 - 5, self.height - 35
+                        width: 1
+                Widget:
+                    canvas.before:
+                        Color:
+                            rgba: [73/255, 70/255, 102/255, 1]
+                        Line:
+                            points: root.line_points
+                            width: 1
+                Anim_canvas:
+                    id: anim
+                    pos: 0, 0
+                    size: 0, 0
+                    color: 46/255, 43/255, 63/255, 0.5
+
+
+
+        BoxLayout:
+            size_hint: 1, .25
+            canvas.before:
+                Color:
+                    rgba: [46/255, 43/255, 63/255, 0.5]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            RelativeLayout:
+                id: grafic
+                canvas.before:
+                    Color:
+                        rgba: [1,1,1,1]
+                    Line:
+                        points: 30,30,30,self.height - 30
+                        width: 1
+                    Line:
+                        points: 30, self.height / 2, self.width - 30, self.height / 2
+                        width: 1
+                    Color:
+                        rgba: [113/255, 34/255, 234/255, 1]
+                    Line:
+                        points: root.grafic_points
